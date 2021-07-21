@@ -52,11 +52,11 @@ const Register: React.FC<registerProps> = ({}) => {
             ></InputField>
             <Button
               mt={4}
-              colorScheme="teal"
+              colorScheme="red"
               type="submit"
               isLoading={isSubmitting}
             >
-              Register
+              Sign up
             </Button>
           </Form>
         )}

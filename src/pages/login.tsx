@@ -7,17 +7,17 @@ import { useLoginMutation } from "../generated/graphql";
 import { toErrorMap } from "../utils/toErrorMap";
 import { useRouter } from "next/router";
 
-interface registerProps {}
+interface loginProps {}
 
-const Register: React.FC<registerProps> = ({}) => {
-  const [, register] = useLoginMutation();
+const Login: React.FC<loginProps> = ({}) => {
+  const [, login] = useLoginMutation();
   const router = useRouter();
   return (
     <Wrapper variant="small">
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={async (values, { setErrors }) => {
-          const response = await register(values);
+          const response = await login(values);
           if (response.data?.login.errors) {
             setErrors(toErrorMap(response.data?.login.errors));
           } else if (response.data?.login.user) {
@@ -45,11 +45,11 @@ const Register: React.FC<registerProps> = ({}) => {
             ></InputField>
             <Button
               mt={4}
-              colorScheme="teal"
+              colorScheme="blue"
               type="submit"
               isLoading={isSubmitting}
             >
-              Login
+              Log in
             </Button>
           </Form>
         )}
@@ -58,4 +58,4 @@ const Register: React.FC<registerProps> = ({}) => {
   );
 };
 
-export default Register;
+export default Login;

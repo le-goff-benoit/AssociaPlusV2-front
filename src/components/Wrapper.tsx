@@ -9,7 +9,6 @@ export const Wrapper: React.FC<WrapperProps> = ({ children, variant }) => {
     <Box
       maxW={variant === "regular" ? "800px" : "400px"}
       marginX={"auto"}
-      marginTop={"50px"}
     >
       {children}
     </Box>

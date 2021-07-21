@@ -1,0 +1,12 @@
+mutation LogOut {
+	logout {
+    user {
+      id
+    }
+    errors {
+      field
+      message
+    }
+  }  
+}
+

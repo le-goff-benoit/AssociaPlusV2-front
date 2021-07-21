@@ -116,6 +116,23 @@ export type LoginMutation = (
   ) }
 );
 
+export type LogOutMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogOutMutation = (
+  { __typename?: 'Mutation' }
+  & { logout: (
+    { __typename?: 'UserResponse' }
+    & { user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id'>
+    )>, errors?: Maybe<Array<(
+      { __typename?: 'UserError' }
+      & Pick<UserError, 'field' | 'message'>
+    )>> }
+  ) }
+);
+
 export type RegisterMutationVariables = Exact<{
   name: Scalars['String'];
   email: Scalars['String'];
@@ -137,6 +154,17 @@ export type RegisterMutation = (
   ) }
 );
 
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentUserQuery = (
+  { __typename?: 'Query' }
+  & { currentUser?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'email'>
+  )> }
+);
+
 
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
@@ -156,6 +184,23 @@ export const LoginDocument = gql`
 export function useLoginMutation() {
   return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
 };
+export const LogOutDocument = gql`
+    mutation LogOut {
+  logout {
+    user {
+      id
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+
+export function useLogOutMutation() {
+  return Urql.useMutation<LogOutMutation, LogOutMutationVariables>(LogOutDocument);
+};
 export const RegisterDocument = gql`
     mutation Register($name: String!, $email: String!, $password: String!) {
   register(options: {name: $name, email: $email, password: $password}) {
@@ -173,4 +218,15 @@ export const RegisterDocument = gql`
 
 export function useRegisterMutation() {
   return Urql.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument);
+};
+export const CurrentUserDocument = gql`
+    query CurrentUser {
+  currentUser {
+    email
+  }
+}
+    `;
+
+export function useCurrentUserQuery(options: Omit<Urql.UseQueryArgs<CurrentUserQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<CurrentUserQuery>({ query: CurrentUserDocument, ...options });
 };

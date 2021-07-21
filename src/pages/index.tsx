@@ -8,9 +8,6 @@ const Index = () => (
   <>
   <Container>
   <div>Home</div>
-    <Link href="/register">
-      <Button colorScheme="blue">Register</Button>
-    </Link>
   </Container>
   </>
 );
